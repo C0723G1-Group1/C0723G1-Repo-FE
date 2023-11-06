@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <script src="FBDBc3UVcAczrDS.jpeg"></script>
+    <script src="../../boostrap/bootstrap-5.1.3/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../boostrap/bootstrap-5.1.3/css/bootstrap.css">
+</head>
+<body>
+<div class="container-fluid" style="font-family:'Roboto', sans-serif">
+    <nav class="navbar navbar-expand-lg bg-white px-5">
+        <div class="container-fluid p-0">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="FBDBc3UVcAczrDS.jpeg" height="100" width="130"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div style="margin: 0 auto">
+                <div class="collapse navbar-collapse ">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li>
+                            <a class="nav-link active" aria-current="page" href="#" style="color: black">Trang sức
+                                bạc</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black"> Trang sức vàng </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Nhẫn cưới </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Thành Viên </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div>
+
+                <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 right">
+                    <li>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                            <button class="btn " type="submit"><img src="icons8-search (1).gif" height="35" width="35"/>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="nav-item " style="margin-right: 2%">
+                        <img src="icons8-cart.gif" height="45" width="45"/>
+                    </li>
+                    <li class="nav-item " style="margin-right: 2%">
+                        <img src="icons8-user-50.png" height="45" width="45"/></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3" style="float: left">
+            <ul class="nav flex-column ">
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="itiar-1.png" height="15" width="14"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Thông tin tài khoản</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="donhang.png" height="16" width="13"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Đơn hàng</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="donhang.png" height="16" width="13"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Giỏ hàng</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="tim (1).png" height="12" width="14"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Yêu thích</a></td>
+                        </tr>
+                    </table>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="col-md-5" style="float: right">
+            <h3 style="margin-bottom: 10px">Thêm mới thông tin khách hàng</h3>
+            <div class="mb-3 row">
+                <label for="makhachhang" class="col-sm-4 col-form-label" style="font-weight: bold">Mã khách hàng<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="makhachhang" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-4 col-form-label" style="font-weight: bold">Họ tên<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-4 col-form-label" style="font-weight: bold">Email<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="email" placeholder="@gmail.com" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="phoneNumber" class="col-sm-4 col-form-label" style="font-weight: bold">Số điện thoại<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="phoneNumber" placeholder="Mời bạn nhập số điện thoại"
+                           required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="gender" class="col-sm-4 col-form-label" style="font-weight: bold">Giới tính<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8" id="gender">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                               value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Nam</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                               value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                               value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Khác</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="dateOfBirth" class="col-sm-4 col-form-label" style="font-weight: bold">Ngày sinh<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="dateOfBirth" required>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="d-flex justify-content-center align-items-center px-0 ">
+                    <select class="form-select form-select-lg " id="city" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                    </select>
+
+                    <select class="form-select form-select-lg" id="district" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+
+                    <select class="form-select form-select-lg " id="ward" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn phường xã</option>
+                    </select>
+                </div>
+
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+                <script>
+                    var citis = document.getElementById("city");
+                    var districts = document.getElementById("district");
+                    var wards = document.getElementById("ward");
+                    var Parameter = {
+                        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                        method: "GET",
+                        responseType: "application/json",
+                    };
+                    var promise = axios(Parameter);
+                    promise.then(function (result) {
+                        renderCity(result.data);
+                    });
+
+                    function renderCity(data) {
+                        for (const x of data) {
+                            citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                        }
+                        citis.onchange = function () {
+                            district.length = 1;
+                            ward.length = 1;
+                            if (this.value != "") {
+                                const result = data.filter(n => n.Id === this.value);
+
+                                for (const k of result[0].Districts) {
+                                    district.options[district.options.length] = new Option(k.Name, k.Id);
+                                }
+                            }
+                        };
+                        district.onchange = function () {
+                            ward.length = 1;
+                            const dataCity = data.filter((n) => n.Id === citis.value);
+                            if (this.value != "") {
+                                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                                for (const w of dataWards) {
+                                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                                }
+                            }
+                        };
+                    }
+                </script>
+            </div>
+            <div class="mb-3 row">
+                <input class="form-text form-select-lg" type="text" placeholder="Nhập địa chỉ khách hàng">
+            </div>
+            <div class="mb-3 row">
+                <label for="loaikhach" class="col-sm-4 col-form-label" style="font-weight: bold">Loại khách hàng<span
+                        style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" id="loaikhach" aria-label="Default select example">
+                        <option selected>Chọn loại khách hàng</option>
+                        <option value="1">Diamond</option>
+                        <option value="2">Gold</option>
+                        <option value="3">Silver</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="account" class="col-sm-4 col-form-label" style="font-weight: bold">Tài khoản
+                    <span style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="account" placeholder="Mail or User name" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="mkm" class="col-sm-4 col-form-label" style="font-weight: bold">Mật khẩu
+                    <span style="color: red">*</span></label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="mkm" placeholder="Mời bạn nhập mật khẩu" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-danger"
+                            style="width: 50%; text-transform: uppercase;font-weight: 600">
+                        Thêm mới khách hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="margin-bottom: 100px;    margin-top: 40px;
+">
+            <p>Trên trang này bạn có thể sửa đổi thông tin đăng nhập và các dữ liệu cá nhân được sử dụng trong để mua
+                hàng.</p>
+            <p>
+                Để giữ cho tài khoản của bạn bảo mật an toàn chúng tôi khuyên bạn nên tránh việc tạo mật khẩu sử dụng:
+            </p>
+            <ul>
+                <li>Từ điển trong ngôn ngữ bất kỳ.</li>
+                <li>Từ đánh vần ngược, lỗi chính tả phổ biến, và chữ viết tắt.</li>
+                <li>Trình tự hoặc các ký tự lặp đi lặp lại. Ví dụ: 12345678, 222222, abcdefg, hoặc các chữ cái liền kề
+                    trên
+                    bàn phím (qwerty).
+                </li>
+                <li>Thông tin cá nhân. Tên của bạn, sinh nhật, số giấy phép lái xe, số hộ chiếu, hoặc thông tin tương
+                    tự.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

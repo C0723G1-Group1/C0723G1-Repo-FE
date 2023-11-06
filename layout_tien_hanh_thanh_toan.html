@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../bootstrap-5.1.3-dist/css/bootstrap.css">
+    <script src="../../bootstrap-5.1.3-dist/js/bootstrap.js"></script>
+    <style>
+        .h1-hover:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="font-family:'Roboto', sans-serif">
+    <nav class="navbar navbar-expand-lg bg-white px-5">
+        <div class="container-fluid p-0">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="FBDBc3UVcAczrDS.jpeg" height="100" width="130"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div style="margin: 0 auto">
+                <div class="collapse navbar-collapse ">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li>
+                            <a class="nav-link active" aria-current="page" href="#" style="color: black">Trang sức </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black"> Đồ thủ công </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black"> Bộ sưu tập </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Quà tặng</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Khuyến Mãi </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Thành Viên </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div>
+                <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 right">
+                    <li class="nav-item">
+                        <img src="icons8-search.gif" height="45" width="45"/>
+                    </li>
+                    <li class="nav-item">
+                        <img src="icons8-cart.gif" height="45" width="45"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <hr>
+    <div class="mx-2">
+        <div class="d-flex align-items-center align-content-center m-3">
+            <p class="p-0"><a href="#" class=" text-black text-decoration-none">Trang chủ</a>></p>
+            <p class="p-0 align-items-center align-content-center h-100">Thanh toán</p>
+        </div>
+        <div class="row m-3">
+            <div class="col-12 col-sm-8 col-md-8 px-4">
+                <div class="row my-5">
+                    <h3 class="p-0">THÔNG TIN NGƯỜI MUA</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 p-0">
+                            <h6 class="d-flex align-content-center">HỌ TÊN<p>*</p></h6>
+                        </div>
+                        <div class="col-9 col-sm-9 col-md-9 p-0 align-content-center">
+                            <form><input type="text" class="border-0 w-100" placeholder="Truong Minh Thuan"></input>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 p-0">
+                            <h6 class="d-flex align-content-center">ĐIỆN THOẠI<p>*</p></h6>
+                        </div>
+                        <div class="col-9 col-sm-9 col-md-9 p-0 align-content-center">
+                            <form><input type="text" class="border-0 w-100" placeholder="0969993902"></input></form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 col-sm-3 col-md-3 p-0">
+                            <h6 class="d-flex align-content-center">EMAIL<p>*</p></h6>
+                        </div>
+                        <div class="col-9 col-sm-9 col-md-9 p-0 align-content-center">
+                            <form><input type="text" class="border-0 w-100"
+                                         placeholder="minhthuandtu@gmail.com"></input></form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <h3 class="p-0">CHỌN HÌNH THỨC NHẬN HÀNG</h3>
+                    <hr>
+                    <div class="d-block justify-content-center align-content-center p-0">
+                        <button class="w-100 bg-danger text-light py-2 border-0">GIAO HÀNG TẬN NƠI</button>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-center align-items-center my-3 px-0 ">
+                            <select class="form-select form-select-lg " id="city" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                            </select>
+
+                            <select class="form-select form-select-lg" id="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+
+                            <select class="form-select form-select-lg " id="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
+                        </div>
+
+
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+                        <script>
+                            var citis = document.getElementById("city");
+                            var districts = document.getElementById("district");
+                            var wards = document.getElementById("ward");
+                            var Parameter = {
+                                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                                method: "GET",
+                                responseType: "application/json",
+                            };
+                            var promise = axios(Parameter);
+                            promise.then(function (result) {
+                                renderCity(result.data);
+                            });
+
+                            function renderCity(data) {
+                                for (const x of data) {
+                                    citis.options[citis.options.length] = new Option(x.Name, x.Id);
+                                }
+                                citis.onchange = function () {
+                                    district.length = 1;
+                                    ward.length = 1;
+                                    if (this.value != "") {
+                                        const result = data.filter(n => n.Id === this.value);
+
+                                        for (const k of result[0].Districts) {
+                                            district.options[district.options.length] = new Option(k.Name, k.Id);
+                                        }
+                                    }
+                                };
+                                district.onchange = function () {
+                                    ward.length = 1;
+                                    const dataCity = data.filter((n) => n.Id === citis.value);
+                                    if (this.value != "") {
+                                        const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                                        for (const w of dataWards) {
+                                            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                                        }
+                                    }
+                                };
+                            }
+                        </script>
+                    </div>
+                    <div class="row">
+                        <input class="form-text form-select-lg" type="text" placeholder="Nhập địa chỉ khách hàng">
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <h3 class="p-0">HÌNH THỨC THANH TOÁN</h3>
+                    <hr>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label h5" for="flexRadioDefault1">
+                            Thanh toán tiền mặt khi nhận hàng (COD)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                               checked>
+                        <label class="form-check-label h5" for="flexRadioDefault2">
+                            Thanh toán chuyển khoản
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-center align-content-center p-0">
+                        <button class="w-25 bg-danger text-light py-2 border-0">ĐẶT MUA</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-4" style="background-color: #f2f2f2">
+                <div class="my-5"><p style="font-size:150%">Thông tin đơn hàng</p>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <a href="#"><img class="w-100"
+                                         src="https://trangsuc.doji.vn/resize/medium/awfg111850f2ml1_1-dXBsb2Fk-medium.jpg"></a>
+                    </div>
+                    <div class="col-9 col-sm-9 col-md-9">
+                        <a href="#" class="text-black text-decoration-none"><h5>NHẪN CƯỚI SALSA 111849F2KK1
+                            111849F2ML1</h5></a>
+                        <p>MSP : 111849F2ML1</p>
+                        <h5>SỐ LƯỢNG: 1</h5>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Giá tiền:</p>
+                        <p>8,200,000đ</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Tạm tính:</p>
+                        <p>8,200,000đ</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Thành tiền:</h6>
+                        <p>8,200,000đ</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <a href="#"><img class="w-100"
+                                         src="https://trangsuc.doji.vn/resize/medium/awfg111850f2ml1_1-dXBsb2Fk-medium.jpg"></a>
+                    </div>
+                    <div class="col-9 col-sm-9 col-md-9">
+                        <a href="#" class="text-black text-decoration-none"><h5>NHẪN CƯỚI SALSA 111849F2KK1
+                            111849F2ML1</h5></a>
+                        <p>MSP : 111849F2ML1</p>
+                        <h5>SỐ LƯỢNG: 1</h5>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Giá tiền:</p>
+                        <p>8,200,000đ</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Tạm tính:</p>
+                        <p>8,200,000đ</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Thành tiền:</h6>
+                        <p>8,200,000đ</p>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <div class="d-flex justify-content-between">
+                        <p>Tạm tính:</p>
+                        <h6>16,400,000đ</h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Giảm giá member:</p>
+                        <h6>Diamond</h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Vận chuyển:</p>
+                        <h6>Miễn phí vận chuyển</h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <p>Thành tiền:</p>
+                        <h6>16,400,000đ</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
