@@ -2,9 +2,7 @@ package com.example.product.repository.impl;
 
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
-import com.example.product.model.Material;
-import com.example.product.model.ProductSize;
-import com.example.product.model.ProductType;
+import com.example.product.model.*;
 import com.example.product.repository.BaseRepository;
 import com.example.product.repository.IProductRepository;
 
@@ -13,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProductRepository implements IProductRepository {
@@ -20,33 +19,37 @@ public class ProductRepository implements IProductRepository {
 
     private static final String SELECT_ALL_PRODUCT_RING_HOME =
             "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp on " +
-                    "lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Nhẫn\" order by s.gia limit 12;";
+                    "lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Nhẫn\" and s.trang_thai =1 order by s.gia limit 12;";
     private static final String SELECT_ALL_PRODUCT_RING =
             "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp on " +
-                    "lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Nhẫn\" order by s.gia;";
+                    "lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Nhẫn\" and s.trang_thai =1 order by s.gia;";
     private static final String SELECT_ALL_PRODUCT_NECKLACE_HOME = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp" +
-            " on lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Dây chuyền\" order by s.gia limit 12;";
+            " on lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Dây chuyền\" and s.trang_thai =1 order by s.gia limit 12;";
     private static final String SELECT_ALL_PRODUCT_NECKLACE = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp" +
-            " on lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Dây chuyền\" order by s.gia;";
-    private static final String SELECT_ALL_PRODUCT_OUTSTANDING = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp on lsp.id = s.id_loai_san_pham order by s.gia desc limit 12;";
+            " on lsp.id = s.id_loai_san_pham where lsp.ten_loai like \"Dây chuyền\" and s.trang_thai =1 order by s.gia;";
+    private static final String SELECT_ALL_PRODUCT_OUTSTANDING = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp on lsp.id = s.id_loai_san_pham where s.trang_thai =1 order by s.gia desc limit 12;";
     private static final String SELECT_ALL_PRODUCT_GOLD = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp\n" +
-            "           on lsp.id = s.id_loai_san_pham where cl.ten like \"Vàng\" order by s.gia;";
+            "           on lsp.id = s.id_loai_san_pham where cl.ten like \"Vàng\" and s.trang_thai =1 order by s.gia;";
     private static final String SELECT_ALL_PRODUCT_SILVER = "select * from san_pham s join chat_lieu cl on cl.id = s.id_chat_lieu join loai_san_pham lsp\n" +
-            "           on lsp.id = s.id_loai_san_pham where cl.ten like \"Bạc\" order by s.gia;";
+            "           on lsp.id = s.id_loai_san_pham where cl.ten like \"Bạc\" and s.trang_thai =1 order by s.gia;";
     private static final String SELECT_ALL_PRODUCT_ADMIN
             = "select s.id as id_san_pham ,s.mo_ta as mo_ta_sp,s.*,lsp.*,cl.*,sz.* from san_pham s" +
-            " join loai_san_pham lsp on lsp.id = s.id_loai_san_pham join chat_lieu cl on cl.id = s.id_chat_lieu join size sz on sz.id = s.id_size;";
-    private static final String UPDATE_IMAGE = "update hinh_anh set link_path = ? where id = ?";
+            " join loai_san_pham lsp on lsp.id = s.id_loai_san_pham join chat_lieu cl on cl.id = s.id_chat_lieu join size sz on sz.id = s.id_size where s.trang_thai =1;";
+    private static final String UPDATE_IMAGE = "update hinh_anh set link_path = ? where id = ? ";
     private static final String UUPDATE_PRODUCT = "update san_pham set ma_san_pham = ?, ten_san_pham = ?, id_loai_san_pham = ?, id_chat_lieu = ?, id_size =?, gia =?, so_luong =?,mo_ta = ? where id = ?;";
     private static final String SELECT_FROM_LOAI_SAN_PHAM = "select * from loai_san_pham;";
     private static final String SELECT_FROM_CHAT_LIEU = "select * from chat_lieu;";
     private static final String SELECT_FROM_SIZE = "select * from size;";
-    private static final String SELECT_PRODUCT_BY_ID = "select s.id as id_san_pham ,s.mo_ta as mo_ta_sp,s.*,lsp.*,cl.*,sz.* from san_pham s join loai_san_pham lsp on lsp.id = s.id_loai_san_pham join chat_lieu cl on cl.id = s.id_chat_lieu join size sz on sz.id = s.id_size where s.ma_san_pham =?;";
-    private static final String SELECT_ALL_MATERIAL = "select * from chat_lieu;";
+    private static final String SELECT_PRODUCT_BY_ID = "select s.id as id_san_pham ,s.mo_ta as mo_ta_sp,s.*,lsp.*,cl.*,sz.* from san_pham s join loai_san_pham lsp on lsp.id = s.id_loai_san_pham join chat_lieu cl on cl.id = s.id_chat_lieu join size sz on sz.id = s.id_size where s.ma_san_pham =? and s.trang_thai =1;";
+    private static final String SELECT_ALL_MATERIAL = "select * from chat_lieu ;";
     private static final String SELECT_ALL_PRODUCT_TYPE = "select * from loai_san_pham;";
     private static final String SELECT_ALL_PRODUCT_SIZE = "select * from size;";
-    private static final String SELECT_ID_BY_CODE = "select id from san_pham where ma_san_pham = ?;";
+    private static final String SELECT_ID_BY_CODE = "select id from san_pham where ma_san_pham = ? and trang_thai =1;";
     private static final String SELECT_ID_BY_CODE_IMAGE = "select id from hinh_anh where link_path = ? and id_san_pham = ?;";
+    private static final String INSERT_PRODUCT = "insert into san_pham(ma_san_pham,ten_san_pham,id_loai_san_pham,id_chat_lieu,id_size,gia,so_luong,mo_ta,trang_thai) value(?,?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String INSERT_IMAGE = "insert into hinh_anh(link_path,id_san_pham) value(?,?);";
+    private static final String DELETE_PRODUCT = "update san_pham set trang_thai =0 where id = ?;";
+    private static final String SELECT_ALL_ORDER_CART = "call get_all_cart(?);";
 
     @Override
     public List<ProductDTO> findAllProductRingHome() {
@@ -532,6 +535,127 @@ public class ProductRepository implements IProductRepository {
         }
         return idImage;
     }
+
+    @Override
+    public void insertProductAdminDTO(ProductAdminDTO productAdminDTO) {
+        Connection connection = BaseRepository.getConnectDB();
+        // create bảng san pham
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT);
+            preparedStatement.setString(1, productAdminDTO.getProductCode());
+            preparedStatement.setString(2, productAdminDTO.getProductName());
+            List<ProductType> productTypeList = new ArrayList<>();
+            PreparedStatement preparedStatement2 = connection.prepareStatement(SELECT_FROM_LOAI_SAN_PHAM);
+            ResultSet resultSet = preparedStatement2.executeQuery();
+            while (resultSet.next()) {
+                int id = Integer.parseInt(resultSet.getString("id"));
+                String productTypeCode = resultSet.getString("ma_loai_sp");
+                String productTypeName = resultSet.getString("ten_loai");
+                String describe = resultSet.getString("mo_ta");
+                productTypeList.add(new ProductType(id, productTypeCode, productTypeName, describe));
+            }
+            for (ProductType productType : productTypeList) {
+                if (productAdminDTO.getProductType().equals(productType.getProductTypeName())) {
+                    preparedStatement.setInt(3, productType.getId());
+                    break;
+                }
+            }
+            List<Material> materialList = new ArrayList<>();
+            PreparedStatement preparedStatement3 = connection.prepareStatement(SELECT_FROM_CHAT_LIEU);
+            ResultSet resultSet3 = preparedStatement3.executeQuery();
+            while (resultSet3.next()) {
+                int id = Integer.parseInt(resultSet3.getString("id"));
+                String materialCode = resultSet3.getString("ma_chat_lieu");
+                String materialName = resultSet3.getString("ten");
+                String describe = resultSet3.getString("mo_ta");
+                materialList.add(new Material(id, materialCode, materialName, describe));
+            }
+            for (Material material : materialList) {
+                if (productAdminDTO.getMaterial().equals(material.getMaterialName())) {
+                    preparedStatement.setInt(4, material.getId());
+                    break;
+                }
+            }
+            List<ProductSize> productSizeList = new ArrayList<>();
+            PreparedStatement preparedStatement4 = connection.prepareStatement(SELECT_FROM_SIZE);
+            ResultSet resultSet4 = preparedStatement4.executeQuery();
+            while (resultSet4.next()) {
+                int id = Integer.parseInt(resultSet4.getString("id"));
+                String sizeCode = resultSet4.getString("ma_size");
+                String sizeName = resultSet4.getString("ten_size");
+                String describe = resultSet4.getString("mo_ta");
+                productSizeList.add(new ProductSize(id, sizeCode, sizeName, describe));
+            }
+            for (ProductSize productSize : productSizeList) {
+                if (productAdminDTO.getSize().equals(productSize.getSizeName())) {
+                    preparedStatement.setInt(5, productSize.getId());
+                    break;
+                }
+            }
+            preparedStatement.setInt(6, productAdminDTO.getPrice());
+            preparedStatement.setInt(7, productAdminDTO.getQuantity());
+            preparedStatement.setString(8, productAdminDTO.getDescribe());
+            preparedStatement.setInt(9, 1);
+            preparedStatement.executeUpdate();
+            //create hinh_anh
+            PreparedStatement preparedStatement5 = connection.prepareStatement(INSERT_IMAGE);
+            for (String link_path : productAdminDTO.getImage()) {
+                preparedStatement5.setString(1, link_path);
+                preparedStatement5.setInt(2, getIdByCode(productAdminDTO.getProductCode()));
+                preparedStatement5.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public boolean deleteProduct(String productCode) {
+        boolean rowDelete;
+        Connection connection = BaseRepository.getConnectDB();
+        int id = getIdByCode(productCode);
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT);
+            preparedStatement.setInt(1, id);
+            rowDelete = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowDelete;
+    }
+
+    @Override
+    public void insertOrderCard(OrderCart orderCart) {
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into gio_hang(id_tai_khoan,id_san_pham,so_luong) value(?,?,?);");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<OrderCartDTO> displayAllOrderCard(String user) {
+        List<OrderCartDTO> orderCartDTOList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER_CART);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String productName = resultSet.getString("ten_san_pham");
+                String productCode = resultSet.getString("ma_san_pham");
+                String linkPath = resultSet.getString("link_path");
+                int quantity = resultSet.getInt("so_luong");
+                int provisional = resultSet.getInt("tam_tinh");
+                orderCartDTOList.add(new OrderCartDTO(productName, productCode, linkPath, quantity, provisional));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderCartDTOList;
+    }
+
+
 }
 
 

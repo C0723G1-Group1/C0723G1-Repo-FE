@@ -57,8 +57,11 @@
 
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 </head>
 </head>
 <body>
@@ -117,9 +120,11 @@
                             <button type="submit" class="btn btn-outline-danger bt b1" style="height: 30.33px">Tìm
                                 kiếm
                             </button>
-                            <button type="submit" class="btn btn-outline-danger bt b1" style="height: 30.33px">Thêm sản
-                                phẩm
-                            </button>
+                            <a href="/products?action=create-product">
+                                <button type="button" class="btn btn-outline-danger bt b1" style="height: 30.33px">
+                                    Thêm sản phẩm
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -133,10 +138,10 @@
                         <th>Chất liệu sản phẩm</th>
                         <th>Loại sản phẩm</th>
                         <th>Size sản phẩm</th>
-<%--                        <th>Số lượng sản phẩm</th>--%>
+                        <%--                        <th>Số lượng sản phẩm</th>--%>
                         <th>Giá sản phẩm</th>
-<%--                        <th>Ảnh</th>--%>
-<%--                        <th>Mô tả</th>--%>
+                        <%--                        <th>Ảnh</th>--%>
+                        <%--                        <th>Mô tả</th>--%>
                         <th>Chi tiết</th>
                         <th>Sửa</th>
                         <th>Xóa</th>
@@ -151,31 +156,36 @@
                                 <td>${product.material}</td>
                                 <td>${product.productType}</td>
                                 <td>${product.size}</td>
-<%--                                <td>${product.quantity}</td>--%>
+                                    <%--                                <td>${product.quantity}</td>--%>
                                 <td>${product.price}</td>
-<%--                                <td class="d-flex justify-content-center">--%>
-<%--                                    <c:forEach var="image" items="${product.image}">--%>
-<%--                                        <img src="${image}" style="width: 100px; height: 100px">--%>
-<%--                                    </c:forEach>--%>
-<%--                                </td>--%>
-<%--                                <td>${product.describe}</td>--%>
+                                    <%--                                <td class="d-flex justify-content-center">--%>
+                                    <%--                                    <c:forEach var="image" items="${product.image}">--%>
+                                    <%--                                        <img src="${image}" style="width: 100px; height: 100px">--%>
+                                    <%--                                    </c:forEach>--%>
+                                    <%--                                </td>--%>
+                                    <%--                                <td>${product.describe}</td>--%>
                                 <td>
                                     <a href="/products?action=detail-admin&id=${product.productCode}">
-                                    <button type="button" class="btn btn-outline-primary" style="font-size: 16px;">Chi tiết
-                                    </button>
+                                        <button type="button" class="btn btn-outline-primary" style="font-size: 16px;">
+                                            Chi tiết
+                                        </button>
                                     </a>
                                 </td>
                                 <td>
                                     <a href="/products?action=edit&id=${product.productCode}">
-                                        <button type="button" class="btn btn-outline-danger bt b1" style="font-size: 16px;">
+                                        <button type="button" class="btn btn-outline-danger bt b1"
+                                                style="font-size: 16px;">
                                             sửa
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger bt b1" style="font-size: 16px;">
+                                    <button data-bs-toggle="modal" data-bs-target="#xoa1" type="button"
+                                            onclick="setModal('${product.productCode}')" class="btn btn-outline-danger bt b1"
+                                            style="font-size: 16px;">
                                         Xóa
                                     </button>
+                                    </a>
                                 </td>
                             </tr>
                         </div>
@@ -187,12 +197,35 @@
     </div>
     <c:import url="footer.jsp"></c:import>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js" ></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js" ></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" ></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" ></script>
+<div class="modal" tabindex="-1" id="xoa1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 style="text-align: center">Bạn có muốn xóa sản phẩm này ?</h5>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="#">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Không</button>
+                </a>
+                <a id="id1">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-    new DataTable('#example',{
+    function setModal(id) {
+        console.log(id)
+        document.getElementById("id1").setAttribute("href", `/products?action=delete-product&id=` + id);
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    new DataTable('#example', {
         order: [[5, 'desc']],
         paging: true
     });
