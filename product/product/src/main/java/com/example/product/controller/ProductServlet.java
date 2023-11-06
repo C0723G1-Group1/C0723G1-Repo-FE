@@ -5,7 +5,9 @@ import com.example.product.dto.ProductDTO;
 import com.example.product.model.Material;
 import com.example.product.model.ProductSize;
 import com.example.product.model.ProductType;
+import com.example.product.service.IAccountService;
 import com.example.product.service.IProductService;
+import com.example.product.service.impl.AccountService;
 import com.example.product.service.impl.ProductService;
 
 import javax.servlet.*;
@@ -19,6 +21,7 @@ import java.util.List;
 @WebServlet(name = "ProductServlet", value = "/products")
 public class ProductServlet extends HttpServlet {
     private IProductService productService = new ProductService();
+    private IAccountService accountService = new AccountService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,13 +44,23 @@ public class ProductServlet extends HttpServlet {
                 listProductNecklace(request, response);
                 break;
             case "list-product-admin":
-                listProductAdmin(request, response);
+                HttpSession session = request.getSession();
+                String user = (String) session.getAttribute("account");
+                if(accountService.getAccType(user)==2){
+                    listProductAdmin(request, response);
+                }
+                else {
+                    userHome(request, response);
+                }
                 break;
             case "edit":
                 showEditForm(request, response);
                 break;
             case "login":
                 loginAccount(request, response);
+                break;
+            case "logout":
+                logoutAcc(request, response);
                 break;
             case "detail":
                 showDetailProduct(request, response);
@@ -61,9 +74,67 @@ public class ProductServlet extends HttpServlet {
             case "detail-admin":
                 showDetailProductAdmin(request, response);
                 break;
+            case "create-product":
+                createProduct(request, response);
+                break;
+            case "delete-product":
+                deleteProduct(request, response);
+                break;
+            case "create-product-order":
+                createProductOrder(request, response);
+                break;
             default:
                 listProduct(request, response);
                 break;
+        }
+    }
+    private void logoutAcc(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.setAttribute("account","");
+        try {
+            response.sendRedirect("/products");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void userHome(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.sendRedirect("product/waiting_for_my_team.jsp");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void createProductOrder(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("account");
+
+    }
+
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        String productCode = request.getParameter("id");
+        productService.deleteProduct(productCode);
+        try {
+            response.sendRedirect("products?action=list-product-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) {
+        List<Material> materialList = productService.displayAllMaterial();
+        List<ProductType> productTypeList = productService.displayAllProductType();
+        List<ProductSize> productSizeList = productService.displayAllProductSize();
+        request.setAttribute("materialList", materialList);
+        request.setAttribute("productTypeList", productTypeList);
+        request.setAttribute("productSizeList", productSizeList);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/create.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -129,13 +200,89 @@ public class ProductServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-//            case "create":
-//                insertUser(request, response);
-//                break;
+            case "create-product":
+                insertProduct(request, response);
+                break;
             case "edit":
                 updateProduct(request, response);
                 break;
+            case "check-exist":
+                checkExist(request, response);
+                break;
+            case "register":
+                register(request, response);
+                break;
         }
+    }
+    private void register(HttpServletRequest request, HttpServletResponse response) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        if(accountService.isUsernameExist(username)){
+            try {
+                response.sendRedirect("product/login.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            accountService.addNewUserPassword(username, password);
+            int idAcc = accountService.getIdAccount(username);
+            String cusCode = "KH-0000" + idAcc;
+            String cusName = request.getParameter("hoten");
+            String mail = request.getParameter("mail");
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("address");
+            String gender =  request.getParameter("gender");
+            accountService.addNewCustomer(cusCode, cusName, mail,phone, address, gender, idAcc);
+            try {
+                response.sendRedirect("product/login.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    private void checkExist(HttpServletRequest request, HttpServletResponse response) {
+        String username = request.getParameter("account");
+        String password = request.getParameter("password");
+        boolean check = accountService.checkAccount(username, password);
+        if(check){
+            HttpSession httpSession = request.getSession();
+            httpSession.setAttribute("account", username);
+            try {
+                response.sendRedirect("/products");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            loginAccount(request, response);
+        }
+
+    }
+
+    private void insertProduct(HttpServletRequest request, HttpServletResponse response) {
+        String productCode = request.getParameter("productCode");
+        String productName = request.getParameter("productName");
+        String productType = request.getParameter("productType");
+        String material = request.getParameter("material");
+        String describe = request.getParameter("describe");
+        String sizeProduct = request.getParameter("size-product");
+        int price = Integer.parseInt(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String image = request.getParameter("image");
+        String[] imageArray = image.split(",");
+        List<String> imageList = new ArrayList<>();
+        for (String str : imageArray) {
+            imageList.add(str);
+        }
+        ProductAdminDTO productAdminDTO = new ProductAdminDTO(productCode, productName, material, productType, sizeProduct, quantity, price, imageList, describe);
+        productService.insertProductAdminDTO(productAdminDTO);
+        try {
+            response.sendRedirect("products?action=list-product-admin");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) {

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: OS
+  User: ADMIN
   Date: 11/5/2023
-  Time: 4:47 PM
+  Time: 4:44 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,7 +24,7 @@
       border-radius: 6px;
       cursor: pointer;
       color: #fff;
-      font-weight: 40px;
+      font-weight: 40;
       transition: .5s;
     }
 
@@ -68,7 +68,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      transform: scale(0);
+      /* transform: scale(0); */
       transition: transform .5s ease ,height .2s ease;
     }
 
@@ -77,8 +77,8 @@
     }
 
     .wrapper.active {
-      height: 850px;
-      width: 550px;
+      height: 950px;
+      width: 850px;
     }
 
     .wrapper .form-box {
@@ -230,9 +230,6 @@
 
 <body>
 <header>
-  <nav class="navigation">
-    <button class="btnLogin-popup">Login</button>
-  </nav>
 </header>
 <div class="wrapper">
         <span class="icon-close">
@@ -240,22 +237,22 @@
         </span>
   <div class="form-box login">
     <h2>Login</h2>
-    <form action="#">
+    <form action="/products" method="post">
       <div class="input-box">
         <span class="icon"><ion-icon name="mail"></ion-icon></span>
-        <input type="text" required>
+        <input name="account" type="text" required>
         <label>Email</label>
       </div>
       <div class="input-box">
         <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-        <input type="password" required>
+        <input name="password" type="password" required>
         <label>Password</label>
       </div>
       <div class="remember-forgot">
         <label><input type="checkbox">Remember me</label>
         <a href="#">Forgot Password?</a>
       </div>
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" name="action" value="check-exist" class="btn">Login</button>
       <div class="login-register">
         <p>Don't have an account?
           <a href="#" class="register-link">Register
@@ -268,27 +265,51 @@
 
   <div class="form-box register">
     <h2>Registration</h2>
-    <form action="#">
+    <form action="/products" method="post">
       <div class="input-box">
         <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
-        <input type="text" required>
+        <input name="username" type="text" required>
         <label>Username</label>
       </div>
       <div class="input-box">
+        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+        <input name="password" type="password" required>
+        <label>Password</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+        <input name="hoten" type="text" required>
+        <label>Họ và Tên</label>
+      </div>
+      <div class="input-box">
         <span class="icon"><ion-icon name="mail"></ion-icon></span>
-        <input type="text" required>
+        <input name="mail" type="text" >
         <label>Email</label>
       </div>
       <div class="input-box">
         <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-        <input type="password" required>
-        <label>Password</label>
+        <input name="phone" type="text" >
+        <label>SĐT</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+        <input name="address" type="text" >
+        <label>Địa chỉ</label>
+      </div>
+      <div class="input-box">
+        <span class="icon"><ion-icon name="people"></ion-icon></span>
+        <select name="gender" id="gender-select" required>
+          <option value="other" disabled selected hidden>Chọn giới tính của bạn</option>
+          <option value="male">Nam</option>
+          <option value="female">Nữ</option>
+          <option value="other">Khác</option>
+        </select>
       </div>
       <div class="remember-forgot">
         <label><input type="checkbox">I agree to the terms & condittions</label>
 
       </div>
-      <button type="submit" class="btn">Register</button>
+      <button type="submit" name="action" value="register" class="btn">Register</button>
       <div class="login-register">
         <p>Already have an account?
           <a href="#" class="login-link">Login
@@ -298,7 +319,7 @@
     </form>
   </div>
 </div>
-<script>
+<script >
   const wrapper = document.querySelector('.wrapper');
   const loginLink = document.querySelector('.login-link');
   const registerLink = document.querySelector('.register-link');
@@ -328,3 +349,4 @@
 </body>
 
 </html>
+

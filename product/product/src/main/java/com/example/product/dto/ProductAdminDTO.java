@@ -18,6 +18,17 @@ public class ProductAdminDTO {
     public ProductAdminDTO() {
     }
 
+    public ProductAdminDTO(String productCode, String productName, String material, String productType, String size, int quantity, int price, List<String> image, String describe) {
+        this.productCode = productCode;
+        this.productName = productName;
+        this.material = material;
+        this.productType = productType;
+        this.size = size;
+        this.quantity = quantity;
+        this.price = price;
+        this.image = image;
+        this.describe = describe;
+    }
 
     public ProductAdminDTO(int id, String productCode, String productName, String material, String productType, String size, int quantity, int price, List<String> image, String describe) {
         this.id = id;

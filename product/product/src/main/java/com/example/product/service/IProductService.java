@@ -3,6 +3,7 @@ package com.example.product.service;
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
 import com.example.product.model.Material;
+import com.example.product.model.OrderCartDTO;
 import com.example.product.model.ProductSize;
 import com.example.product.model.ProductType;
 
@@ -23,4 +24,8 @@ public interface IProductService {
     List<ProductType> displayAllProductType();
     List<ProductSize> displayAllProductSize();
     int getIdByCode(String code);
+    void insertProductAdminDTO(ProductAdminDTO productAdminDTO);
+    boolean deleteProduct(String productCode);
+    List<OrderCartDTO> displayAllOrderCard(String user);
+
 }

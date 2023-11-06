@@ -3,6 +3,7 @@ package com.example.product.service.impl;
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
 import com.example.product.model.Material;
+import com.example.product.model.OrderCartDTO;
 import com.example.product.model.ProductSize;
 import com.example.product.model.ProductType;
 import com.example.product.repository.IProductRepository;
@@ -83,5 +84,21 @@ public class ProductService implements IProductService {
     public int getIdByCode(String code) {
         return productRepository.getIdByCode(code);
     }
+
+    @Override
+    public void insertProductAdminDTO(ProductAdminDTO productAdminDTO) {
+        productRepository.insertProductAdminDTO(productAdminDTO);
+    }
+
+    @Override
+    public boolean deleteProduct(String productCode) {
+        return productRepository.deleteProduct(productCode);
+    }
+
+    @Override
+    public List<OrderCartDTO> displayAllOrderCard(String user) {
+        return productRepository.displayAllOrderCard(user);
+    }
+
 
 }
