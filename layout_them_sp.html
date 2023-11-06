@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <style>
+
+
+        .title-h2 {
+            position: relative;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+            display: block;
+            color: #212529;
+            transition: 0.3s linear;
+            font-size: 22px;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+
+        .b1 {
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .left1 td {
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btn-outline-secondary {
+            font-size: 12px;
+            padding: 3px 3px;
+        }
+    </style>
+    <link rel="stylesheet" href="../../boostrap/bootstrap-5.1.3/css/bootstrap.css">
+    <script src="../../boostrap/bootstrap-5.1.3/js/bootstrap.js"></script>
+</head>
+<body>
+<div class="container-fluid" style="font-family:'Roboto', sans-serif">
+    <nav class="navbar navbar-expand-lg bg-white px-5">
+        <div class="container-fluid p-0">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="FBDBc3UVcAczrDS.jpeg" height="100" width="130"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div style="margin: 0 auto">
+                <div class="collapse navbar-collapse ">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li>
+                            <a class="nav-link active" aria-current="page" href="#" style="color: black">Trang sức
+                                bạc</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black"> Trang sức vàng </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Nhẫn cưới </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="#" style="color: black">Thành Viên </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div>
+
+                <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0 right">
+                    <li>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                            <button class="btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="nav-item " style="margin-right: 2%">
+                        <button class="btn"><i class="fa-solid fa-cart-shopping"></i></button>
+
+                    </li>
+                    <li class="nav-item " style="margin-right: 2%">
+                        <button class="btn"><i class="fa-regular fa-user"></i></button>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row m-4 ">
+        <div class="col-md-2 col-sm-12 left1" style="background-color: #F5F4F4">
+            <ul class="nav flex-column ">
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="itiar-1.png" height="15" width="14"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Thông tin tài khoản</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="donhang.png" height="16" width="13"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Đơn hàng</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="giohnag.png" height="16" width="13"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Giỏ hàng</a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="nav-item">
+                    <table>
+                        <tr>
+                            <td><img src="tim.png" height="12" width="14"/></td>
+                            <td><a class="nav-link text-secondary" href="#">Yêu thích</a></td>
+                        </tr>
+                    </table>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-md-7 col-sm-12 mx-3">
+            <h2 class="title-h2">THÊM MỚI SẢN PHẨM</h2>
+            <form>
+                <div class="mb-3 row">
+                    <label for="masanpham" class="col-sm-4 col-form-label" style="font-weight: bold">Mã sản phẩm<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="masanpham" required>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="loaisanpham" class="col-sm-4 col-form-label" style="font-weight: bold">Loại sản
+                        phẩm<span
+                                style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="loaisanpham" aria-label="Default select example">
+                            <option selected>Chọn loại sản phẩm</option>
+                            <option value="1">Nhẫn</option>
+                            <option value="2">Dây chuyền</option>
+                            <option value="3">Vòng tay</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="chatlieu" class="col-sm-4 col-form-label" style="font-weight: bold">Chất liệu<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="chatlieu" aria-label="Default select example">
+                            <option selected>Chọn chất liệu</option>
+                            <option value="1">Vàng</option>
+                            <option value="2">Bạc</option>
+                            <option value="3">Bạch kim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="size" class="col-sm-4 col-form-label" style="font-weight: bold">Size<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="size" aria-label="Default select example">
+                            <option selected>Chọn size</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="gia" class="col-sm-4 col-form-label" style="font-weight: bold">Giá<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="gia" required>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="soluong" class="col-sm-4 col-form-label" style="font-weight: bold">Số lượng<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="soluong" required>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="mota" class="col-sm-4 col-form-label" style="font-weight: bold">Mô tả<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="mota" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="anh" class="col-sm-4 col-form-label" style="font-weight: bold">Ảnh<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="file" id="anh" multiple>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-8">
+                        <button type="button" class="btn btn-danger"
+                                style="width: 50%; text-transform: uppercase;font-weight: 600">
+                            Thêm mới sản phẩm
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3 col-sm-12">
+        </div>
+    </div>
+</div>
+</body>
+</html>
