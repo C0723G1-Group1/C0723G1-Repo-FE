@@ -147,7 +147,7 @@
                 <c:choose>
                     <c:when test="${account != ''}">
                         <li class="nav-item " style="margin-right: 2%">
-                            <a href=""><button class="btn"><i class="fa-solid fa-cart-shopping"></i></button></a>
+                            <a href="/products?action=list-order-cart"><button class="btn"><i class="fa-solid fa-cart-shopping"></i></button></a>
                         </li>
                         <li>
                             <a href="/products?action=list-product-admin"><button class="btn"><i class="fa-regular fa-user"></i></button></a>

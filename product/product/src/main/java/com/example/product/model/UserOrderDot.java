@@ -18,6 +18,13 @@ public class UserOrderDot {
         this.orderTotal = orderTotal;
     }
 
+    public UserOrderDot( String orderCode, String orderDate, String orderState, float orderTotal) {
+        this.orderCode = orderCode;
+        this.orderDate = orderDate;
+        this.orderState = orderState;
+        this.orderTotal = orderTotal;
+    }
+
     public int getOrderId() {
         return orderId;
     }

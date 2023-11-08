@@ -2,9 +2,7 @@ package com.example.product.controller;
 
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
-import com.example.product.model.Material;
-import com.example.product.model.ProductSize;
-import com.example.product.model.ProductType;
+import com.example.product.model.*;
 import com.example.product.service.IAccountService;
 import com.example.product.service.IProductService;
 import com.example.product.service.impl.AccountService;
@@ -15,7 +13,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", value = "/products")
@@ -46,10 +43,9 @@ public class ProductServlet extends HttpServlet {
             case "list-product-admin":
                 HttpSession session = request.getSession();
                 String user = (String) session.getAttribute("account");
-                if(accountService.getAccType(user)==2){
+                if (accountService.getAccType(user) == 2) {
                     listProductAdmin(request, response);
-                }
-                else {
+                } else {
                     userHome(request, response);
                 }
                 break;
@@ -83,23 +79,58 @@ public class ProductServlet extends HttpServlet {
             case "create-product-order":
                 createProductOrder(request, response);
                 break;
+            case "list-order-cart":
+                showOrderCard(request, response);
+                break;
+            case "delete-cart":
+                deleteCart(request, response);
             default:
+                HttpSession session1 = request.getSession();
+                if(session1.getAttribute("account")==null){
+                    session1.setAttribute("account","");
+                }
                 listProduct(request, response);
                 break;
         }
     }
+
+    private void deleteCart(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productService.deleteOrderCart(id);
+        showOrderCard(request, response);
+    }
+
+    private void showOrderCard(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("account");
+        List<OrderCartDTO> orderCartDTOList = productService.displayAllOrderCard(user);
+        List<OrderCart> orderCartList = productService.displayAllOrderCardByUser(user);
+        request.setAttribute("orderCartDTOList", orderCartDTOList);
+        request.setAttribute("orderCartList", orderCartList);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("product/order-cart.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void logoutAcc(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        session.setAttribute("account","");
+        session.setAttribute("account", "");
         try {
             response.sendRedirect("/products");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     private void userHome(HttpServletRequest request, HttpServletResponse response) {
         try {
-            response.sendRedirect("product/waiting_for_my_team.jsp");
+            response.sendRedirect("/customer-order");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,6 +139,24 @@ public class ProductServlet extends HttpServlet {
     private void createProductOrder(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String user = (String) session.getAttribute("account");
+        if (!user.equals("")) {
+            String productCode = request.getParameter("id");
+            int idProduct = productService.getIdByCode(productCode);
+            int idAccount = productService.getIdAccountByUser(user);
+            OrderCart orderCart = new OrderCart(idAccount, idProduct, 1);
+            productService.insertOrderCard(orderCart);
+            try {
+                response.sendRedirect("/products");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                response.sendRedirect("product/login.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
@@ -214,17 +263,17 @@ public class ProductServlet extends HttpServlet {
                 break;
         }
     }
+
     private void register(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if(accountService.isUsernameExist(username)){
+        if (accountService.isUsernameExist(username)) {
             try {
                 response.sendRedirect("product/login.jsp");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             accountService.addNewUserPassword(username, password);
             int idAcc = accountService.getIdAccount(username);
             String cusCode = "KH-0000" + idAcc;
@@ -232,8 +281,8 @@ public class ProductServlet extends HttpServlet {
             String mail = request.getParameter("mail");
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
-            String gender =  request.getParameter("gender");
-            accountService.addNewCustomer(cusCode, cusName, mail,phone, address, gender, idAcc);
+            String gender = request.getParameter("gender");
+            accountService.addNewCustomer(cusCode, cusName, mail, phone, address, gender, idAcc);
             try {
                 response.sendRedirect("product/login.jsp");
             } catch (IOException e) {
@@ -241,20 +290,20 @@ public class ProductServlet extends HttpServlet {
             }
         }
     }
+
     private void checkExist(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("account");
         String password = request.getParameter("password");
         boolean check = accountService.checkAccount(username, password);
-        if(check){
+        if (check) {
             HttpSession httpSession = request.getSession();
-            httpSession.setAttribute("account", username);
+            httpSession.setAttribute("account",username);
             try {
                 response.sendRedirect("/products");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             loginAccount(request, response);
         }
 

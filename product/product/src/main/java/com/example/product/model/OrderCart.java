@@ -13,6 +13,12 @@ public class OrderCart {
         this.quantity = quantity;
     }
 
+    public OrderCart(int idAccount, int idProduct, int quantity) {
+        this.idAccount = idAccount;
+        this.idProduct = idProduct;
+        this.quantity = quantity;
+    }
+
     public OrderCart() {
     }
 

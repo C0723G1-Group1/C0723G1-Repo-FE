@@ -49,6 +49,10 @@
             font-size: 12px;
             padding: 3px 3px;
         }
+        .modal{
+            font-size: 12px;
+            font-family: 'Roboto', sans-serif;
+        }
     </style>
 </head>
 <div>
@@ -114,6 +118,7 @@
                     <th>Tình trạng đơn hàng</th>
                     <th>Tổng thanh toán</th>
                     <th>Chi tiết</th>
+                    <th>Huỷ đơn</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -123,9 +128,16 @@
                         <td>${order.orderDate}</td>
                         <td>${order.orderState}</td>
                         <td>${order.orderTotal}</td>
-                        <td><button name="code_dh" value="${order.orderCode}" type="submit" class="btn btn-outline-secondary" formaction="/user_order?action=detail">
+                        <td><button  name="code_dh" value="${order.orderCode}" type="submit" class="btn b1 btn-outline-secondary" formaction="/user_order?action=detail">
                             Chi tiết
                         </button></td>
+                        <td>
+                            <button data-bs-toggle="modal" data-bs-target="#xoa1" type="button"
+                                    onclick="setModal('${order.orderCode}')" class="btn btn-outline-danger bt b1
+                                    ">
+                                Huỷ
+                            </button>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -135,6 +147,29 @@
     </div>
 </div>
 <c:import url="footer.jsp"></c:import>
+
 </div>
+<div class="modal" tabindex="-1" id="xoa1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 style="text-align: center; font-size: 15px;
+            font-family: 'Roboto', sans-serif;">Bạn có muốn huỷ đơn hàng này này ?</h5>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <a href="#">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Không</button>
+                </a>
+                <a id="id1">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Có</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>function setModal(id) {
+
+    document.getElementById("id1").setAttribute("href", `/user_order?action=cancel-order&id=` + id);
+}</script>
 </body>
 </html>

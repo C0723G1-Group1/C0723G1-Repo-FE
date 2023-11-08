@@ -65,7 +65,7 @@
       <table>
         <tr>
           <td><img src="https://i.imgur.com/uvXA2cO.png" height="16" width="13"/></td>
-          <td><a class="nav-link text-secondary" href="#">Giỏ hàng</a></td>
+          <td><a class="nav-link text-secondary" href="/products?action=list-order-cart">Giỏ hàng</a></td>
         </tr>
       </table>
     </li>

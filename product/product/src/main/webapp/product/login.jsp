@@ -241,21 +241,23 @@
       <div class="input-box">
         <span class="icon"><ion-icon name="mail"></ion-icon></span>
         <input name="account" type="text" required>
-        <label>Email</label>
+        <label>Username</label>
       </div>
       <div class="input-box">
         <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
         <input name="password" type="password" required>
         <label>Password</label>
       </div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember me</label>
-        <a href="#">Forgot Password?</a>
-      </div>
       <button type="submit" name="action" value="check-exist" class="btn">Login</button>
       <div class="login-register">
         <p>Don't have an account?
           <a href="#" class="register-link">Register
+          </a>
+        </p>
+      </div>
+      <div class="login-register">
+        <p>I will login later
+          <a href="/products" class="register-link">LUNA
           </a>
         </p>
       </div>
@@ -297,13 +299,9 @@
         <label>Địa chỉ</label>
       </div>
       <div class="input-box">
-        <span class="icon"><ion-icon name="people"></ion-icon></span>
-        <select name="gender" id="gender-select" required>
-          <option value="other" disabled selected hidden>Chọn giới tính của bạn</option>
-          <option value="male">Nam</option>
-          <option value="female">Nữ</option>
-          <option value="other">Khác</option>
-        </select>
+        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+        <input name="gender" type="text" >
+        <label>Giới tính</label>
       </div>
       <div class="remember-forgot">
         <label><input type="checkbox">I agree to the terms & condittions</label>
@@ -313,6 +311,12 @@
       <div class="login-register">
         <p>Already have an account?
           <a href="#" class="login-link">Login
+          </a>
+        </p>
+      </div>
+      <div class="login-register">
+        <p>I want back to
+          <a href="/products" class="register-link">LUNA
           </a>
         </p>
       </div>

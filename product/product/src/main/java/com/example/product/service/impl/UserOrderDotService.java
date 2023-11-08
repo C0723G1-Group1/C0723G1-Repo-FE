@@ -18,6 +18,11 @@ public class UserOrderDotService implements IUserOrderDotService {
     }
 
     @Override
+    public List<UserOrderDot> getAllOrderByUsername(String username) {
+        return userOrderDotRepo.getAllOrderByUsername(username);
+    }
+
+    @Override
     public List<String> getAllState() {
         return userOrderDotRepo.getAllState();
     }
@@ -25,5 +30,10 @@ public class UserOrderDotService implements IUserOrderDotService {
     @Override
     public List<UserOrderDot> getAllUserOrderWith(String code, Date fromDate, Date toDate, String state) {
         return userOrderDotRepo.getAllUserOrderWith(code, fromDate, toDate, state);
+    }
+
+    @Override
+    public List<UserOrderDot> getAllUserOrderWithUsername(String username, String code, Date fromDate, Date toDate, String state) {
+        return userOrderDotRepo.getAllUserOrderWithUsername(username, code, fromDate, toDate, state);
     }
 }

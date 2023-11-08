@@ -3,6 +3,8 @@ package com.example.product.controller;
 
 
 import com.example.product.model.QuanLyChatLieu;
+import com.example.product.service.IAccountService;
+import com.example.product.service.impl.AccountService;
 import com.example.product.service.impl.QuanLyChatLieuService;
 
 import javax.print.attribute.standard.Severity;
@@ -12,12 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "QuanLyChatLieuController", urlPatterns = "/quan_ly_chat_lieu")
 public class QuanLyChatLieuController extends HttpServlet {
+    private IAccountService accountService = new AccountService();
     private final QuanLyChatLieuService quanLyChatLieuService = new QuanLyChatLieuService();
 
 
@@ -40,24 +44,32 @@ public class QuanLyChatLieuController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute("account");
+        if(user != null && !user.equals("") && accountService.getAccType(user) == 2 ){
+            request.setCharacterEncoding("UTF-8");
+            String action = request.getParameter("action");
+            if (action == null) {
+                action = "";
+            }
+            switch (action) {
+                case "add":
+                    showNewForm(request, response);
+                    break;
+                case "edit":
+                    showEditForm(request, response);
+                    break;
+                case "search":
+                    search(request, response);
+                    break;
+                default:
+                    displayAll(request, response);
+                    break;
+            }
         }
-        switch (action) {
-            case "add":
-                showNewForm(request, response);
-                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
-            case "search":
-                search(request, response);
-                break;
-            default:
-                displayAll(request, response);
-                break;
+        else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("troll/troll.jsp");
+            requestDispatcher.forward(request, response);
         }
     }
 

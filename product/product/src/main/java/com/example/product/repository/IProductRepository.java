@@ -44,5 +44,7 @@ public interface IProductRepository {
     void insertOrderCard(OrderCart orderCart);
 
     List<OrderCartDTO> displayAllOrderCard(String user);
-
+    int getIdAccountByUser(String user);
+    boolean deleteOrderCart(int id);
+    List<OrderCart> displayAllOrderCardByUser(String user);
 }

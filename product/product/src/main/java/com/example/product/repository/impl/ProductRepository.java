@@ -50,6 +50,10 @@ public class ProductRepository implements IProductRepository {
     private static final String INSERT_IMAGE = "insert into hinh_anh(link_path,id_san_pham) value(?,?);";
     private static final String DELETE_PRODUCT = "update san_pham set trang_thai =0 where id = ?;";
     private static final String SELECT_ALL_ORDER_CART = "call get_all_cart(?);";
+    private static final String RESERT_CART = "insert into gio_hang(id_tai_khoan,id_san_pham,so_luong) value(?,?,?);";
+    private static final String SELECT_ID_BY_USER = "select id from tai_khoan where user_name like ?;";
+    private static final String SELECT_ID_CART_BY_USER = "select gh.id as id_gio_hang,id_tai_khoan,id_san_pham,so_luong from gio_hang gh join tai_khoan tk on tk.id = gh.id_tai_khoan where user_name =?";
+    private static final String DELETE_CART_BY_ID = "delete from gio_hang where id =?;";
 
     @Override
     public List<ProductDTO> findAllProductRingHome() {
@@ -628,9 +632,13 @@ public class ProductRepository implements IProductRepository {
     public void insertOrderCard(OrderCart orderCart) {
         Connection connection = BaseRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into gio_hang(id_tai_khoan,id_san_pham,so_luong) value(?,?,?);");
+            PreparedStatement preparedStatement = connection.prepareStatement(RESERT_CART);
+            preparedStatement.setInt(1, orderCart.getIdAccount());
+            preparedStatement.setInt(2, orderCart.getIdProduct());
+            preparedStatement.setInt(3, orderCart.getQuantity());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -640,6 +648,7 @@ public class ProductRepository implements IProductRepository {
         Connection connection = BaseRepository.getConnectDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER_CART);
+            preparedStatement.setString(1, user);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String productName = resultSet.getString("ten_san_pham");
@@ -653,6 +662,61 @@ public class ProductRepository implements IProductRepository {
             throw new RuntimeException(e);
         }
         return orderCartDTOList;
+    }
+
+    @Override
+    public int getIdAccountByUser(String user) {
+        Connection connection = BaseRepository.getConnectDB();
+        int id;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ID_BY_USER);
+            preparedStatement.setString(1, user);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            } else {
+                id = -1;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+    }
+
+    @Override
+    public boolean deleteOrderCart(int id) {
+        boolean rowDelete;
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CART_BY_ID);
+            preparedStatement.setInt(1, id);
+            rowDelete = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rowDelete;
+    }
+
+    @Override
+    public List<OrderCart> displayAllOrderCardByUser(String user) {
+        List<OrderCart> orderCartList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ID_CART_BY_USER);
+            preparedStatement.setString(1, user);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id_gio_hang");
+                int idAccount = resultSet.getInt("id_tai_khoan");
+                int idProduct = resultSet.getInt("id_san_pham");
+                int quantity = resultSet.getInt("so_luong");
+                orderCartList.add(new OrderCart(id, idAccount, idProduct, quantity));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderCartList;
     }
 
 

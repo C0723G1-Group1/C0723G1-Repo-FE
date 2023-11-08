@@ -2,10 +2,7 @@ package com.example.product.service;
 
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
-import com.example.product.model.Material;
-import com.example.product.model.OrderCartDTO;
-import com.example.product.model.ProductSize;
-import com.example.product.model.ProductType;
+import com.example.product.model.*;
 
 import java.util.List;
 
@@ -27,5 +24,9 @@ public interface IProductService {
     void insertProductAdminDTO(ProductAdminDTO productAdminDTO);
     boolean deleteProduct(String productCode);
     List<OrderCartDTO> displayAllOrderCard(String user);
+    void insertOrderCard(OrderCart orderCart);
+    int getIdAccountByUser(String user);
+    List<OrderCart> displayAllOrderCardByUser(String user);
+    boolean deleteOrderCart(int id);
 
 }

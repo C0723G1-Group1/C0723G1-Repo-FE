@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: OS
@@ -143,12 +144,28 @@
                         </button>
                     </form>
                 </li>
-                <li class="nav-item " style="margin-right: 2%">
-                    <a href=""><button class="btn"><i class="fa-solid fa-cart-shopping"></i></button></a>
-                </li>
-                <li class="nav-item " style="margin-right: 2%">
-                    <a href="/products?action=list-product-admin"><button class="btn"><i class="fa-regular fa-user"></i></button></a>
-<%--                    <a href="/products?action=login"><button class="btn"><i class="fa-regular fa-user"></i></button></a>--%>
+                <c:choose>
+                    <c:when test="${account != ''}">
+                        <li class="nav-item " style="margin-right: 2%">
+                            <a href="/products?action=list-order-cart"><button class="btn"><i class="fa-solid fa-cart-shopping"></i></button></a>
+                        </li>
+                        <li>
+                            <a href="/products?action=list-product-admin"><button class="btn"><i class="fa-regular fa-user"></i></button></a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <a href="/products?action=login"><button class="btn"><i class="fa-solid fa-right-to-bracket"></i></button></a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${account != ''}">
+                        <li>
+                            <a href="/products?action=logout"><button class="btn"><i class="fa-solid fa-right-from-bracket"></i></button></a>
+                        </li>
+                    </c:when>
+                </c:choose>
             </ul>
         </div>
     </div>

@@ -2,10 +2,7 @@ package com.example.product.service.impl;
 
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductDTO;
-import com.example.product.model.Material;
-import com.example.product.model.OrderCartDTO;
-import com.example.product.model.ProductSize;
-import com.example.product.model.ProductType;
+import com.example.product.model.*;
 import com.example.product.repository.IProductRepository;
 import com.example.product.repository.impl.ProductRepository;
 import com.example.product.service.IProductService;
@@ -98,6 +95,26 @@ public class ProductService implements IProductService {
     @Override
     public List<OrderCartDTO> displayAllOrderCard(String user) {
         return productRepository.displayAllOrderCard(user);
+    }
+
+    @Override
+    public void insertOrderCard(OrderCart orderCart) {
+        productRepository.insertOrderCard(orderCart);
+    }
+
+    @Override
+    public int getIdAccountByUser(String user) {
+        return productRepository.getIdAccountByUser(user);
+    }
+
+    @Override
+    public List<OrderCart> displayAllOrderCardByUser(String user) {
+        return productRepository.displayAllOrderCardByUser(user);
+    }
+
+    @Override
+    public boolean deleteOrderCart(int id) {
+        return productRepository.deleteOrderCart(id);
     }
 
 
